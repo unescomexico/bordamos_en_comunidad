@@ -1,0 +1,457 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100%;
+  height: auto;
+  font-family: 'Myriad Pro', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* Header fijo y estilizado */
+.header {
+  display: none !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: url('pics/bordado2.png') no-repeat center center;
+  background-size: cover;
+  background-color: #732353;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+.header-text {
+  font-size: 1.2em;
+  color: #fff;
+}
+
+.header img {
+  max-width: 500px;
+  height: auto;
+}
+
+/* Wrapper */
+.wrapper {
+  display: flex;
+  max-width: 1200px;
+  gap: 0;
+}
+
+/* Sidebar Izquierdo (Índice) */
+.toc {
+  width: 250px;
+  background-color: #5894CF;
+  color: #fff;
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.toc h2 {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.toc ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.toc li {
+  margin-bottom: 10px;
+}
+
+.toc a {
+  text-decoration: none;
+  color: #fff;
+  word-break: break-word;
+  font-family: 'Myriad Pro', sans-serif;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+}
+
+.toc a.active {
+  font-weight: bold;
+  color: #ccc;
+}
+
+/* Botón para togglear sidebar izquierdo (móviles) */
+#toggle-toc {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1100;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 1.5em;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Contenido Principal: eliminar margen superior si existe (no lo tienes), 
+   pero puede quedar así para quitar margen izquierdo extra */
+.content {
+  flex: 1;
+  margin-left: 230px;
+  margin-right: 230px;
+  min-width: 0;
+  margin-top: 10px; /* Opcional, para pegarlo un poco arriba */ 
+}
+
+/* Contenedor del artículo */
+.container {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 0.95em;
+  color: #732353;
+  font-family: 'Myriad Pro Light', sans-serif;
+  margin-bottom: 15px;
+  text-align: left;
+  cursor: pointer;
+  scroll-margin-top: 70px;
+  /* <-- Importante para evitar que el header tape el título */
+}
+
+h1 {
+  font-size: 2em;
+  color: #b0003a;
+  text-align: center;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.5em;
+  color: white;
+  text-align: center;
+  font-weight: normal;
+}
+
+h3 {
+  font-size: 1.4em;
+  color: #732353;
+  font-family: 'Myriad Pro Bold', sans-serif;
+}
+
+h4 {
+  padding-left: 20px;
+  font-size: 1.2em;
+  color: #9068A7;
+  font-family: 'Myriad Pro Bold', sans-serif;
+}
+
+h5 {
+  padding-left: 30px;
+  font-size: 1.05em;
+  color: #b0003a;
+  font-family: 'Myriad Pro Semibold', sans-serif;
+  margin-bottom: 15px;
+}
+
+h6 {
+  padding-left: 40px;
+  font-size: 1.00em;
+  color: #0071BB  ;
+  font-family: 'Myriad Pro Semibold', sans-serif;
+  margin-bottom: 15px;
+}
+
+/* Párrafos */
+p {
+  margin-bottom: 20px;
+  text-align: justify;
+  font-family: 'Myriad Pro Light', sans-serif;
+  font-size: 1em;
+  color: #333;
+}
+
+/* Listas */
+ul {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+/* Imágenes */
+img {
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  margin: 0 auto 20px;
+}
+
+/* Líneas horizontales */
+hr {
+  border: 1px solid #FDB514;
+  margin: 20px 0;
+}
+
+/* Citas */
+blockquote {
+  border-left: 4px solid #007BFF;
+  padding-left: 15px;
+  margin: 20px 0;
+  font-style: italic;
+  color: #007BFF;
+  font-family: 'Myriad Pro Light Italic', sans-serif;
+  font-size: 0.95em;
+}
+
+/* Secciones colapsables */
+.collapsible .section-content {
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.collapsible-content.expanded {
+  max-height: 1000px;
+}
+
+/* Contenedor de listas dentro del artículo */
+.list-container {
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 20px 30px;
+}
+
+.list-container ol {
+  margin-left: 20px;
+  list-style-position: inside;
+}
+
+.list-container ol ol {
+  margin-left: 40px;
+  list-style-type: lower-alpha;
+  margin: 10px 0;
+}
+
+.list-container li {
+  margin-bottom: 10px;
+  font-family: 'Myriad Pro Light', sans-serif;
+  color: #732353;
+}
+
+/* Tablas */
+table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  width: 90%;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+thead {
+  background-color: #f2f2f2;
+}
+
+tfoot {
+  background-color: #f9f9f9;
+  font-weight: bold;
+}
+
+/* Submenús en el índice */
+.toc ul ul {
+  display: none;
+}
+
+.toc li:hover>ul {
+  display: block;
+}
+
+/* Sidebar Izquierdo en escritorio: cubrir toda la pantalla verticalmente */
+/* Asegura que el índice ocupe toda la altura de la ventana en escritorio */
+@media (min-width: 769px) {
+  .toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100vh;
+    /* Esto garantiza que llegue hasta abajo */
+    width: 250px;
+    overflow-y: auto;
+    background-color: #5894CF;
+    color: #fff;
+    padding: 20px;
+  }
+}
+
+  #toggle-toc {
+    display: none;
+  }
+}
+
+/* Sidebar Derecho */
+.right-sidebar {
+  background-color: #fff;
+  color: #463739;
+  padding: 20px;
+  border: 1px solid #ddd;
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+  position: fixed;
+  top: 60px;
+  right: 0;
+  width: 250px;
+}
+
+.right-sidebar h2 {
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: left;
+  font-size: 1.2em;
+  font-family: 'Myriad Pro', sans-serif;
+}
+
+.right-sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.right-sidebar li {
+  margin-bottom: 10px;
+}
+
+.right-sidebar a {
+  text-decoration: none;
+  color: #463739;
+  font-family: 'Myriad Pro', sans-serif;
+}
+
+.right-sidebar a:hover {
+  text-decoration: underline;
+}
+
+/* Botón para togglear sidebar derecho (móviles) */
+#toggle-right-sidebar {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1100;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 1.5em;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .toc,
+  .content {
+    width: 100%;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  h2 {
+    padding-left: 10px;
+    font-size: 1.3em;
+  }
+
+  h3 {
+    padding-left: 20px;
+    font-size: 1.2em;
+  }
+
+  h4 {
+    padding-left: 30px;
+    font-size: 1em;
+  }
+
+  h4 {
+    padding-left: 40px;
+    font-size: 1em;
+  }
+
+  h6 {
+    padding-left: 50px;
+    font-size: 1em;
+  }
+
+  .toc {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 250px;
+    background-color: #000;
+    transform: translateX(-250px);
+    transition: transform 0.3s ease;
+    z-index: 999;
+  }
+
+  .toc.expanded {
+    transform: translateX(0);
+  }
+
+  #toggle-toc {
+    display: block;
+  }
+
+  .right-sidebar {
+    transform: translateX(250px);
+    transition: transform 0.3s ease;
+    z-index: 998;
+  }
+
+  .right-sidebar.expanded {
+    transform: translateX(0);
+  }
+
+  #toggle-right-sidebar {
+    display: block;
+  }
+}
