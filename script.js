@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
+        // Scroll al destino con compensación del header
         const elementPosition = target.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -15,12 +16,19 @@ document.addEventListener('DOMContentLoaded', function () {
           behavior: 'smooth'
         });
 
-        // ❌ Ya no expandimos nada aquí. Solo hacemos scroll.
+        // 🔽 Expandimos automáticamente la sección-content que sigue al título
+        const targetContent = target.nextElementSibling;
+        if (targetContent && targetContent.classList.contains('section-content')) {
+          expandSection(targetContent);
+        }
+
+        // 🔽 También expandimos padres colapsables si existen
+        expandParents(target);
       }
     });
   });
 
-  // Marcar sección activa en el índice
+  // Observador para marcar el índice activo
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       const id = entry.target.getAttribute('id');
@@ -43,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     observer.observe(section);
   });
 
-  // Toggle sidebar izquierdo
+  // Sidebar izquierdo toggle
   const toggleBtn = document.getElementById('toggle-toc');
   if (toggleBtn) {
     toggleBtn.addEventListener('click', function () {
@@ -54,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Toggle sidebar derecho
+  // Sidebar derecho toggle
   const toggleRightBtn = document.getElementById('toggle-right-sidebar');
   if (toggleRightBtn) {
     toggleRightBtn.addEventListener('click', function () {
@@ -65,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Expande sección con animación
+  // Expandir sección
   function expandSection(section) {
     section.style.maxHeight = section.scrollHeight + 'px';
     section.style.paddingTop = '20px';
@@ -74,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateParentHeights(section);
   }
 
-  // Contrae sección
+  // Contraer sección
   function collapseSection(section) {
     section.style.maxHeight = '0px';
     section.style.paddingTop = '0';
@@ -83,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateParentHeights(section);
   }
 
-  // Recalcula altura total de los hijos
+  // Calcular altura de hijos
   function recalcContainerHeight(container) {
     let total = 0;
     Array.from(container.children).forEach(child => {
@@ -92,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
     container.style.maxHeight = total + 'px';
   }
 
-  // Recalcula alturas en cascada
+  // Actualiza altura de los padres
   function updateParentHeights(element) {
     let currentCollapsible = element.closest('.collapsible');
     let parentCollapsible =
@@ -111,7 +119,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Togglear secciones internas manualmente
+  // 🔁 Expandir padres colapsables si están contraídos
+  function expandParents(element) {
+    let parent = element.closest('.collapsible');
+    while (parent) {
+      const parentContent = parent.querySelector('.section-content');
+      if (parentContent && !parentContent.classList.contains('expanded')) {
+        expandSection(parentContent);
+      }
+      parent = parent.parentElement.closest('.collapsible');
+    }
+  }
+
+  // Toggle de secciones internas por clic en títulos
   const collapsibleHeaders = document.querySelectorAll(
     '.collapsible h1, .collapsible h2, .collapsible h3, .collapsible h4, .collapsible h5, .collapsible h6'
   );
@@ -121,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
       e.stopPropagation();
       const content = this.nextElementSibling;
       if (content && content.classList.contains('section-content')) {
-        const isExpanded = content.style.maxHeight && content.style.maxHeight !== '0px';
+        const isExpanded = content.classList.contains('expanded');
         if (isExpanded) {
           collapseSection(content);
         } else {
