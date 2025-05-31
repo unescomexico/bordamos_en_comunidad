@@ -5,7 +5,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   min-height: 100%;
   height: auto;
   font-family: 'Myriad Pro', sans-serif;
@@ -43,26 +44,43 @@ html, body {
   height: auto;
 }
 
-/* Wrapper */
+/* Wrapper centrado y más ancho */
 .wrapper {
   display: flex;
-  max-width: 1200px;
+  justify-content: center;
   gap: 0;
+  max-width: 1600px;
+  /* Aumenta el ancho máximo */
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-/* Sidebar Izquierdo (Índice) */
+/* Menú lateral más ancho y estable */
 .toc {
-  width: 250px;
-  background-color: #5894CF;
-  color: #fff;
+  width: 300px;
+  /* Aumentado */
+  min-width: 300px;
+  background-color: #ffffff;
+  color: #463739;
   padding: 20px;
+  height: 100vh;
   overflow-y: auto;
-  height: 100%;
+  position: sticky;
+  top: 0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  border-right: 2px solid #9068A7;
+  flex-shrink: 0;
+  /* Evita que se reduzca en pantallas angostas */
 }
 
 .toc h2 {
+  color: #6A2687;
+  /* Morado fuerte */
+  font-size: 1.2em;
   margin-bottom: 10px;
-  text-align: left;
+  border-bottom: 2px solid #463739  ;
+  /* Amarillo fuerte */
+  padding-bottom: 5px;
 }
 
 .toc ul {
@@ -72,48 +90,71 @@ html, body {
 
 .toc li {
   margin-bottom: 10px;
+  position: relative;
 }
 
 .toc a {
   text-decoration: none;
-  color: #fff;
-  word-break: break-word;
-  font-family: 'Myriad Pro', sans-serif;
+  color: #0071BB;
+  /* Azul fuerte */
+  display: block;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: 500;
 }
 
 .toc a:hover {
-  text-decoration: underline;
+  background: linear-gradient(90deg, #FFCD70 0%, #FDB514 100%);
+  color: #463739;
+  /* Texto gris fuerte al hacer hover */
 }
 
 .toc a.active {
+  background-color: #9068A7;
+  /* Morado claro */
+  color: #fff;
   font-weight: bold;
-  color: #ccc;
 }
 
-/* Botón para togglear sidebar izquierdo (móviles) */
-#toggle-toc {
-  display: none;
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 1100;
-  background-color: #007BFF;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  font-size: 1.5em;
-  border-radius: 3px;
-  cursor: pointer;
+/* Submenús animados */
+.toc ul ul {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+  background: linear-gradient(90deg, #faf2ff 0%, #d2afe6 100%);
+  border-left: 3px solid #0071BB  ;
+  /* Rojo fuerte */
+  padding-left: 10px;
+  margin-top: 5px;
+}
+
+.toc li:hover>ul {
+  height: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.toc ul ul a {
+  color: #49B044;
+  /* Verde fuerte */
+  font-size: 0.95em;
+}
+
+.toc ul ul a:hover {
+  background: #8DC77E;
+  /* Verde claro */
+  color: white;
 }
 
 /* Contenido Principal: eliminar margen superior si existe (no lo tienes), 
    pero puede quedar así para quitar margen izquierdo extra */
 .content {
   flex: 1;
-  margin-left: 230px;
-  margin-right: 230px;
-  min-width: 0;
-  margin-top: 10px; /* Opcional, para pegarlo un poco arriba */ 
+  max-width: 800px;
+  /* Ajustable según tu preferencia */
+  padding: 20px;
+  margin: 0 auto; 
 }
 
 /* Contenedor del artículo */
@@ -178,7 +219,7 @@ h5 {
 h6 {
   padding-left: 40px;
   font-size: 1.00em;
-  color: #0071BB  ;
+  color: #0071BB;
   font-family: 'Myriad Pro Semibold', sans-serif;
   margin-bottom: 15px;
 }
@@ -209,7 +250,7 @@ img {
 
 /* Líneas horizontales */
 hr {
-  border: 1px solid #FDB514;
+  border: 1px solid #463739;
   margin: 20px 0;
 }
 
@@ -312,15 +353,13 @@ tfoot {
     /* Esto garantiza que llegue hasta abajo */
     width: 250px;
     overflow-y: auto;
-    background-color: #5894CF;
     color: #fff;
     padding: 20px;
   }
 }
 
-  #toggle-toc {
-    display: none;
-  }
+#toggle-toc {
+  display: none;
 }
 
 /* Sidebar Derecho */
@@ -371,7 +410,6 @@ tfoot {
   top: 20px;
   right: 20px;
   z-index: 1100;
-  background-color: #007BFF;
   color: #fff;
   border: none;
   padding: 10px;
